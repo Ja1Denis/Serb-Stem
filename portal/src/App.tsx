@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Layout, Code, Play, Github, Book, Terminal, Settings, ExternalLink } from 'lucide-react';
+import { Github, Book, Terminal, ExternalLink } from 'lucide-react';
 import InteractiveDemo from './components/InteractiveDemo';
 import FileViewer from './components/FileViewer';
 

@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Zap, Clock, Clipboard, Search, Play, ArrowRight, RefreshCw, Loader2, Cpu, CheckCircle2, Check, Copy } from 'lucide-react';
+import { Zap, Clock, Clipboard, Search, Play, ArrowRight, RefreshCw, Loader2, Cpu, CheckCircle2 } from 'lucide-react';
+// @ts-ignore
 import init, { stem_wasm } from '../pkg/serb_stem.js';
 
 const COMMON_EXAMPLES = ["knjigama", "učenici", "prozorima", "pevajući", "najlepši", "vremena"];
