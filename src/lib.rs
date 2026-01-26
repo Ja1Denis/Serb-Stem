@@ -131,6 +131,7 @@ pub fn stem_wasm(word: &str) -> String {
     stem(word)
 }
 
+#[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn stem_debug_wasm(word: &str) -> Vec<String> {
     crate::stemmer::stem_debug(word)
