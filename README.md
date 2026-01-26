@@ -2,6 +2,8 @@
 
 ![Serb-Stem Header](https://raw.githubusercontent.com/Ja1Denis/Serb-Stem/master/docs/serbstem_header.png)
 
+[![PyPI version](https://badge.fury.io/py/serb-stem.svg)](https://badge.fury.io/py/serb-stem)
+[![Downloads](https://static.pepy.tech/badge/serb-stem)](https://pepy.tech/project/serb-stem)
 [![Rust](https://img.shields.io/badge/language-Rust-orange.svg)](https://www.rust-lang.org/)
 [![Python](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://www.python.org/)
 [![WebAssembly](https://img.shields.io/badge/wasm-supported-blueviolet.svg)](https://webassembly.org/)
