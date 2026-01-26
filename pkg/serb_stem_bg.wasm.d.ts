@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export const stem_debug_wasm: (a: number, b: number, c: number) => void;
 export const conservative_stem_wasm: (a: number, b: number, c: number) => void;
 export const stem_wasm: (a: number, b: number, c: number) => void;
 export const __wbindgen_add_to_stack_pointer: (a: number) => number;

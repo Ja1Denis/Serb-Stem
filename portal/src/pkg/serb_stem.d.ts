@@ -3,12 +3,15 @@
 
 export function conservative_stem_wasm(word: string): string;
 
+export function stem_debug_wasm(word: string): string[];
+
 export function stem_wasm(word: string): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
+    readonly stem_debug_wasm: (a: number, b: number, c: number) => void;
     readonly conservative_stem_wasm: (a: number, b: number, c: number) => void;
     readonly stem_wasm: (a: number, b: number, c: number) => void;
     readonly __wbindgen_add_to_stack_pointer: (a: number) => number;

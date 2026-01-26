@@ -1,14 +1,13 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { Zap, Clock, Clipboard, Search, Play, ArrowRight, RefreshCw, Loader2, Cpu, CheckCircle2 } from 'lucide-react';
 // @ts-ignore
-import init, { stem_wasm } from '../pkg/serb_stem.js';
+import init, { stem_wasm, stem_debug_wasm } from '../pkg/serb_stem.js';
 
-const COMMON_EXAMPLES = ["knjigama", "učenici", "prozorima", "pevajući", "najlepši", "vremena"];
+const COMMON_EXAMPLES = ["knjigama", "učenici", "prozorima", "najlepši", "vremena", "књигама"];
 
 const InteractiveDemo: React.FC = () => {
     const [isWasmLoading, setIsWasmLoading] = useState(true);
-    const [inputText, setInputText] = useState('Premijer Republike Srpske Savo Minić izjavio je da je ogorčen zbog činjenice.');
+    const [inputText, setInputText] = useState('Najslađi plodovi dolaze posle velikog truda i rada u poljima.');
     const [detailWord, setDetailWord] = useState('');
     const [selectedWordIndex, setSelectedWordIndex] = useState<number | null>(null);
     const [isManualOverride, setIsManualOverride] = useState(false);
@@ -30,7 +29,7 @@ const InteractiveDemo: React.FC = () => {
     const batchResults = useMemo(() => {
         if (isWasmLoading) return [];
         const words = inputText.split(/\s+/).filter(w => w.length > 0);
-        return words.map(w => {
+        return words.map((w: string) => {
             const start = performance.now();
             const stemmed = stem_wasm(w);
             const time = performance.now() - start;
@@ -54,11 +53,12 @@ const InteractiveDemo: React.FC = () => {
     }, [batchResults, selectedWordIndex, isManualOverride, isWasmLoading]);
 
     const detailedAnalysis = useMemo(() => {
-        if (isWasmLoading || !detailWord) return { original: detailWord, stemmed: "", time: 0 };
+        if (isWasmLoading || !detailWord) return { original: detailWord, stemmed: "", time: 0, steps: [] as string[] };
         const start = performance.now();
-        const stemmed = stem_wasm(detailWord);
+        const steps = stem_debug_wasm(detailWord);
+        const stemmed = steps[steps.length - 1];
         const time = performance.now() - start;
-        return { original: detailWord, stemmed, time: time < 0.001 ? 0.0035 : time };
+        return { original: detailWord, stemmed, time: time < 0.001 ? 0.0035 : time, steps };
     }, [detailWord, isWasmLoading]);
 
     const copyToClipboard = (text: string) => {
@@ -98,7 +98,7 @@ const InteractiveDemo: React.FC = () => {
                     <div className="w-px h-4 bg-[#30363d]"></div>
                     <div className="flex items-center text-[#8b949e] text-xs font-mono">
                         <Cpu className="w-3.5 h-3.5 mr-1.5" />
-                        v0.1.0
+                        v0.1.3
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@ const InteractiveDemo: React.FC = () => {
                     <div className="flex items-center justify-between relative z-10">
                         <h3 className="font-bold text-[#f0f6fc] flex items-center tracking-tight">
                             <Search className="w-5 h-5 mr-2 text-[#58a6ff]" />
-                            Pojedinačna Riječ
+                            Analiza Procesa (Agentic Vision)
                         </h3>
                     </div>
 
@@ -140,30 +140,45 @@ const InteractiveDemo: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="bg-[#0d1117] rounded-3xl border border-[#30363d] p-10 flex flex-col items-center justify-center min-h-[260px] relative group/result overflow-hidden">
+                        <div className="bg-[#0d1117] rounded-3xl border border-[#30363d] p-8 flex flex-col min-h-[300px] relative group/result overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-b from-[#58a6ff]/5 to-transparent opacity-0 group-hover/result:opacity-100 transition-opacity"></div>
-                            <span className="text-[#8b949e] text-[10px] uppercase tracking-[0.3em] mb-6 font-black opacity-60">Rezultat Stemovanja</span>
+                            <span className="text-[#8b949e] text-[10px] uppercase tracking-[0.3em] mb-6 font-black opacity-60">Faze transformacije</span>
 
-                            <div className="flex flex-col items-center justify-center space-y-4 relative z-10">
-                                <span className="text-7xl font-mono font-black text-[#58a6ff] tracking-tighter drop-shadow-[0_0_25px_rgba(88,166,255,0.2)]">
-                                    {detailWord ? detailedAnalysis.stemmed : "—"}
-                                </span>
-                                {detailWord && (
-                                    <div className="flex items-center space-x-3 text-[#3fb950] text-xs font-mono bg-[#161b22] px-4 py-2 rounded-full border border-[#30363d] shadow-sm">
-                                        <Clock className="w-4 h-4" />
-                                        <span className="font-bold">{detailedAnalysis.time.toFixed(4)}ms</span>
+                            <div className="flex flex-col space-y-3 relative z-10">
+                                {detailedAnalysis.steps.map((step: string, idx: number) => (
+                                    <div key={idx} className="flex items-center animate-in slide-in-from-left duration-300" style={{ animationDelay: `${idx * 100}ms` }}>
+                                        <div className="flex flex-col items-center mr-4">
+                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] font-bold ${idx === detailedAnalysis.steps.length - 1 ? 'border-[#58a6ff] bg-[#58a6ff] text-[#0d1117]' : 'border-[#30363d] text-[#8b949e]'}`}>
+                                                {idx + 1}
+                                            </div>
+                                            {idx < detailedAnalysis.steps.length - 1 && <div className="w-0.5 h-6 bg-[#30363d] my-1"></div>}
+                                        </div>
+                                        <div className={`flex items-center justify-between flex-grow bg-[#161b22]/50 border px-4 py-2.5 rounded-xl ${idx === detailedAnalysis.steps.length - 1 ? 'border-[#58a6ff]/50' : 'border-[#30363d]'}`}>
+                                            <span className={`font-mono text-lg ${idx === detailedAnalysis.steps.length - 1 ? 'text-[#58a6ff] font-bold' : 'text-[#c9d1d9]'}`}>{step}</span>
+                                            {idx === 0 && <span className="text-[10px] text-[#8b949e] font-black uppercase">Start</span>}
+                                            {idx === detailedAnalysis.steps.length - 1 && idx > 0 && <span className="text-[10px] text-[#58a6ff] font-black uppercase tracking-widest animate-pulse">Root</span>}
+                                        </div>
                                     </div>
+                                ))}
+                                {detailWord && detailedAnalysis.steps.length === 0 && (
+                                    <div className="text-[#30363d] italic text-center py-10">Nema promena...</div>
                                 )}
                             </div>
 
-                            <div className="absolute bottom-6 right-6 flex items-center space-x-3">
-                                {showCopyTooltip && <span className="text-[10px] text-[#3fb950] font-black animate-bounce bg-[#238636]/10 px-2 py-1 rounded">KOPIRANO</span>}
-                                <button
-                                    onClick={() => copyToClipboard(detailedAnalysis.stemmed)}
-                                    className="p-3 bg-[#21262d] hover:bg-[#30363d] rounded-2xl text-[#8b949e] hover:text-[#f0f6fc] transition-all border border-[#30363d] active:scale-90"
-                                >
-                                    <Clipboard className="w-5 h-5" />
-                                </button>
+                            <div className="mt-auto pt-8 flex items-center justify-between border-t border-[#30363d]/50">
+                                <div className="flex items-center space-x-3 text-[#3fb950] text-xs font-mono bg-[#161b22] px-4 py-2 rounded-full border border-[#30363d] shadow-sm">
+                                    <Clock className="w-4 h-4" />
+                                    <span className="font-bold">{detailedAnalysis.time.toFixed(4)}ms</span>
+                                </div>
+                                <div className="flex items-center space-x-3">
+                                    {showCopyTooltip && <span className="text-[10px] text-[#3fb950] font-black animate-bounce bg-[#238636]/10 px-2 py-1 rounded">KOPIRANO</span>}
+                                    <button
+                                        onClick={() => copyToClipboard(detailedAnalysis.stemmed)}
+                                        className="p-3 bg-[#21262d] hover:bg-[#30363d] rounded-2xl text-[#8b949e] hover:text-[#f0f6fc] transition-all border border-[#30363d] active:scale-90"
+                                    >
+                                        <Clipboard className="w-5 h-5" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -197,7 +212,7 @@ const InteractiveDemo: React.FC = () => {
                             {COMMON_EXAMPLES.slice(0, 3).map(ex => (
                                 <button
                                     key={ex}
-                                    onClick={() => setInputText(prev => `${prev.trim()} ${ex}`)}
+                                    onClick={() => setInputText((prev: string) => `${prev.trim()} ${ex}`)}
                                     className="text-[10px] font-black text-[#8b949e] hover:text-[#f0f6fc] bg-[#0d1117] px-3 py-1.5 rounded-lg border border-[#30363d] transition-all hover:border-[#58a6ff]"
                                 >
                                     +{ex}
@@ -219,7 +234,7 @@ const InteractiveDemo: React.FC = () => {
                             <span>WASM Output</span>
                         </div>
                         <div className="overflow-y-auto divide-y divide-[#161b22]">
-                            {batchResults.length > 0 ? batchResults.map((r, i) => {
+                            {batchResults.length > 0 ? batchResults.map((r: any, i: number) => {
                                 const isActive = (selectedWordIndex === i) || (selectedWordIndex === null && i === batchResults.length - 1 && !isManualOverride);
                                 return (
                                     <div
