@@ -65,7 +65,7 @@ const App: React.FC = () => {
                 <Terminal className="w-4 h-4 text-[#58a6ff]" />
                 <span className="text-[#f0f6fc] font-bold">SerbStem Project</span>
               </div>
-              <p className="text-[#8b949e] text-xs">Optimizirano za WebAssembly i Python. MIT Licensed.</p>
+              <p className="text-[#8b949e] text-xs">Optimizirano za WebAssembly i Python. AGPL-3.0 Licensed.</p>
             </div>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8">
               <a href="#" target="_blank" rel="noopener" className="flex items-center space-x-1 text-[#8b949e] hover:text-[#58a6ff] text-xs font-bold uppercase tracking-widest transition-colors">
