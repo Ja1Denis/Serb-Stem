@@ -54,7 +54,10 @@ assert_eq!(result, "učenik");
 ```
 
 ## 🌐 Interaktivni Demo
-U okviru projekta nalazi se i `/portal` (React + Vite + WASM) koji omogućava testiranje stemmera direktno u vašem browseru uz vizuelni prikaz rezultata i vremena obrade.
+Isprobajte Serb-Stem uživo, direktno u vašem browseru:
+👉 **[https://ja1denis.github.io/Serb-Stem/](https://ja1denis.github.io/Serb-Stem/)**
+
+Portal je izrađen pomoću React-a i Vite-a, a pokreće ga isti onaj ultra-brzi Rust WASM engine koji koristite u produkciji.
 
 ## 📜 Licenca
 Ovaj projekat je licenciran pod [AGPL-3.0](LICENSE) licencom.
