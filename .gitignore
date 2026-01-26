@@ -1,5 +1,4 @@
 /target
-/pkg
 .venv
 *.log
 docs/plan_razvoja.md
