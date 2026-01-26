@@ -1,6 +1,6 @@
 # Serb-Stem 🇷🇸⚡
 
-![Serb-Stem Header](docs/serbstem_header.png)
+![Serb-Stem Header](https://raw.githubusercontent.com/Ja1Denis/Serb-Stem/master/docs/serbstem_header.png)
 
 [![Rust](https://img.shields.io/badge/language-Rust-orange.svg)](https://www.rust-lang.org/)
 [![Python](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://www.python.org/)
