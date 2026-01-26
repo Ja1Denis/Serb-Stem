@@ -1,11 +1,12 @@
 [package]
 name = "serb_stem"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 authors = ["Antigravity & USER"]
 description = "A high-performance Serbian stemming library supporting both Cyrillic and Latin scripts (Ekavica)."
 license = "AGPL-3.0"
 readme = "README.md"
+repository = "https://github.com/Ja1Denis/Serb-Stem"
 
 [dependencies]
 lazy_static = "1.4.0"
