@@ -7,7 +7,7 @@
 [![Rust](https://img.shields.io/badge/language-Rust-orange.svg)](https://www.rust-lang.org/)
 [![Python](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://www.python.org/)
 [![WebAssembly](https://img.shields.io/badge/wasm-supported-blueviolet.svg)](https://webassembly.org/)
-[![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT%20OR%20Apache--2.0-blue.svg)](LICENSE)
 
 ### „Ponuda koju tvoj NLP procesor ne može da odbije.“
 
@@ -61,8 +61,22 @@ Isprobajte Serb-Stem uživo, direktno u vašem browseru:
 
 Portal je izrađen pomoću React-a i Vite-a, a pokreće ga isti onaj ultra-brzi Rust WASM engine koji koristite u produkciji.
 
-## 📜 Licenca
-Ovaj projekat je licenciran pod [AGPL-3.0](LICENSE) licencom.
+## ⚖️ Licenca i Autorska Prava
+
+Copyright © 2026 Denis Ja1Denis. Sva prava pridržana osim onih dozvoljenih licencom.
+
+Ovaj projekat je licenciran pod **MIT** ili **Apache-2.0** licencom — po vašem izboru.
+
+- 📧 **Email**: sdenis.vr@gmail.com
+- 🔗 **LinkedIn**: [Denis Sakač](https://www.linkedin.com/in/denis-sakac-73a99933/)
+
+> **Napomena**: Ako koristite ovo komercijalno, javite mi se za suradnju. Uvijek sam otvoren za feedback i nove prilike!
+
+***
+
+👨‍💻 **Također od autora:**
+- **[Cro-Stem](https://github.com/Ja1Denis/Cro-Stem)**: Napredni Stemmer za hrvatski jezik.
+- **[Slov-Stem](https://github.com/Ja1Denis/Slov-Stem)**: Prvi pravi Stemmer za slovenski jezik.
 
 ---
 *Developed with ❤️ by Ja1Denis & Antigravity AI*
